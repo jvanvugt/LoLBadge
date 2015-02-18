@@ -31,6 +31,7 @@ public class LoLBadge {
 	private static final int LOL_HEIGHT = 230;
 	private static final int LOL_PADDING = 50;
 	private static boolean imagesLoaded = false;
+	private static final String FONT = "Friz Quadrata";
 	
 	
 	private Participant participant;
@@ -38,14 +39,14 @@ public class LoLBadge {
 	public LoLBadge(Participant participant){
 		if(!imagesLoaded){
 			try {
-				COGNAC_LOGO = ImageIO.read(new File("cognac.png"));
-				UNRANKED = ImageIO.read(new File("UNRANKED.png"));
-				BRONZE = ImageIO.read(new File("BRONZE.png"));
-				SILVER = ImageIO.read(new File("SILVER.png"));
-				GOLD = ImageIO.read(new File("GOLD.png"));
-				PLATINUM = ImageIO.read(new File("PLATINUM.png"));
-				DIAMOND = ImageIO.read(new File("DIAMOND.png"));
-				LOL_LOGO = ImageIO.read(new File("lol.png"));
+				COGNAC_LOGO = ImageIO.read(new File("res\\cognac.png"));
+				UNRANKED = ImageIO.read(new File("res\\UNRANKED.png"));
+				BRONZE = ImageIO.read(new File("res\\BRONZE.png"));
+				SILVER = ImageIO.read(new File("res\\SILVER.png"));
+				GOLD = ImageIO.read(new File("res\\GOLD.png"));
+				PLATINUM = ImageIO.read(new File("res\\PLATINUM.png"));
+				DIAMOND = ImageIO.read(new File("res\\DIAMOND.png"));
+				LOL_LOGO = ImageIO.read(new File("res\\lol.png"));
 				imagesLoaded = true;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -67,7 +68,7 @@ public class LoLBadge {
 		
 		Graphics2D g2d = image.createGraphics();
 		g2d.setColor(Color.BLACK);
-		g2d.setFont(new Font("Comic Sans MS", Font.PLAIN, 36));
+		g2d.setFont(new Font(FONT, Font.PLAIN, 36));
 		
 		drawCentered(participant.getSummonerName(), 0, BADGE_HEIGHT / 2, g2d);
 		drawCentered(participant.getTeamName(), 0, (int) (BADGE_HEIGHT * 0.6), g2d);
@@ -99,19 +100,11 @@ public class LoLBadge {
 	
 	
 	public static void main(String[] args) {
-		/*
-		String fonts[]
-		        = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
-
-		for (int i = 0; i < fonts.length; i++) {
-		    System.out.println(fonts[i]);
-		}
-		*/
 		Participant participant = new Participant("Joris", "Duurt Kor", "Platinum IV");
 		
 		// Write image to file
 		try {
-			ImageIO.write(new LoLBadge(participant).toImage(), "png", new File(participant.getSummonerName() + ".png"));
+			ImageIO.write(new LoLBadge(participant).toImage(), "png", new File("badges\\" + participant.getSummonerName() + ".png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
