@@ -23,7 +23,7 @@ public class BadgeCreator {
 		participants.add(new Participant("Joris", "Duurt Kor", "Platinum IV"));
 		participants.add(new Participant("Rahazan", "Duurt Lan", "Bronze VI"));
 		participants.add(new Participant("ProperChaos", "TeamO", "Diamond I"));
-		participants.add(new Participant("Miayia", "Team Tango", "Silver III"));
+		participants.add(new Participant("Mayia", "Team Tango", "Silver III"));
 		participants.add(new Participant("Fight4MyLife", "Team Tango", "Gold V"));
 		
 		new BadgeCreator().createBadges(participants);

@@ -3,10 +3,10 @@ package com.jorisvanvugt.lolbadge;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.GraphicsEnvironment;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 
@@ -14,13 +14,8 @@ public class LoLBadge {
 	
 	private static final int BADGE_WIDTH = 1122;
 	private static final int BADGE_HEIGHT = 732;
+	private static HashMap<String, BufferedImage> rankLogos = new HashMap<String, BufferedImage>();
 	private static BufferedImage COGNAC_LOGO;
-	private static BufferedImage UNRANKED;
-	private static BufferedImage BRONZE;
-	private static BufferedImage SILVER;
-	private static BufferedImage GOLD;
-	private static BufferedImage PLATINUM;
-	private static BufferedImage DIAMOND;
 	private static BufferedImage LOL_LOGO;
 	private static final int COGNAC_WIDTH = 200;
 	private static final int COGNAC_HEIGHT = 200;
@@ -40,13 +35,17 @@ public class LoLBadge {
 		if(!imagesLoaded){
 			try {
 				COGNAC_LOGO = ImageIO.read(new File("res\\cognac.png"));
-				UNRANKED = ImageIO.read(new File("res\\UNRANKED.png"));
-				BRONZE = ImageIO.read(new File("res\\BRONZE.png"));
-				SILVER = ImageIO.read(new File("res\\SILVER.png"));
-				GOLD = ImageIO.read(new File("res\\GOLD.png"));
-				PLATINUM = ImageIO.read(new File("res\\PLATINUM.png"));
-				DIAMOND = ImageIO.read(new File("res\\DIAMOND.png"));
 				LOL_LOGO = ImageIO.read(new File("res\\lol.png"));
+				
+				rankLogos.put("Unranked", ImageIO.read(new File("res\\UNRANKED.png")));
+				rankLogos.put("Bronze", ImageIO.read(new File("res\\BRONZE.png")));
+				rankLogos.put("Silver", ImageIO.read(new File("res\\SILVER.png")));
+				rankLogos.put("Gold", ImageIO.read(new File("res\\GOLD.png")));
+				rankLogos.put("Platinum", ImageIO.read(new File("res\\PLATINUM.png")));
+				rankLogos.put("Diamond", ImageIO.read(new File("res\\DIAMOND.png")));
+				rankLogos.put("Master", ImageIO.read(new File("res\\MASTER.png")));
+				rankLogos.put("Challenger", ImageIO.read(new File("res\\Challenger.png")));
+				
 				imagesLoaded = true;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -75,7 +74,7 @@ public class LoLBadge {
 		drawCentered(participant.getRank(), 0, (int) (BADGE_HEIGHT * 0.75), g2d);
 		
 		g2d.drawImage(COGNAC_LOGO, BADGE_WIDTH - COGNAC_WIDTH - COGNAC_PADDING, COGNAC_PADDING, COGNAC_WIDTH, COGNAC_HEIGHT, null);
-		g2d.drawImage(getRankImage(participant.getRank()), BADGE_WIDTH / 2 - RANK_WIDTH / 2, BADGE_HEIGHT - RANK_HEIGHT, RANK_WIDTH, RANK_HEIGHT, null);
+		g2d.drawImage(rankLogos.get(participant.getRank().split(" ")[0]), BADGE_WIDTH / 2 - RANK_WIDTH / 2, BADGE_HEIGHT - RANK_HEIGHT, RANK_WIDTH, RANK_HEIGHT, null);
 		g2d.drawImage(LOL_LOGO, BADGE_WIDTH / 2 - LOL_WIDTH / 2, LOL_PADDING, LOL_WIDTH, LOL_HEIGHT, null);
 		return image;
 	}
@@ -84,17 +83,5 @@ public class LoLBadge {
 		int stringLen = (int) g2d.getFontMetrics().getStringBounds(s, g2d).getWidth();
 	    int start = BADGE_WIDTH / 2 - stringLen / 2;
 	    g2d.drawString(s, start + xPos, yPos);
-	}
-	
-	private BufferedImage getRankImage(String rank){
-		switch(rank.split(" ")[0]){
-		case "Unranked": return UNRANKED;
-		case "Bronze": return BRONZE;
-		case "Silver": return SILVER;
-		case "Gold": return GOLD;
-		case "Platinum": return PLATINUM;
-		case "Diamond": return DIAMOND;
-		default: return null;
-		}
 	}
 }
