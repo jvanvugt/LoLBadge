@@ -97,18 +97,4 @@ public class LoLBadge {
 		default: return null;
 		}
 	}
-	
-	
-	public static void main(String[] args) {
-		Participant participant = new Participant("Joris", "Duurt Kor", "Platinum IV");
-		
-		// Write image to file
-		try {
-			ImageIO.write(new LoLBadge(participant).toImage(), "png", new File("badges\\" + participant.getSummonerName() + ".png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println("Done!");
-	}
 }
