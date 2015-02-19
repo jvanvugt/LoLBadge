@@ -66,6 +66,29 @@ public class LoLBadge {
 		}
 		
 		Graphics2D g2d = image.createGraphics();
+		
+		// Quality settings
+		RenderingHints aa = new RenderingHints(
+             		RenderingHints.KEY_ANTIALIASING,
+             		RenderingHints.VALUE_ANTIALIAS_ON);
+    		g2d.setRenderingHints(aa);
+    		aa = new RenderingHints(
+             		RenderingHints.KEY_TEXT_ANTIALIASING,
+             		RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    		g2d.setRenderingHints(aa);
+    		aa = new RenderingHints(
+             		RenderingHints.KEY_RENDERING,
+             		RenderingHints.VALUE_RENDER_QUALITY);
+    		g2d.setRenderingHints(aa);
+    		aa = new RenderingHints(
+             		RenderingHints.KEY_INTERPOLATION,
+             		RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+    		g2d.setRenderingHints(aa);
+    		aa = new RenderingHints(
+             		RenderingHints.KEY_COLOR_RENDERING,
+             		RenderingHints.VALUE_COLOR_RENDER_QUALITY);
+    		g2d.setRenderingHints(aa);
+    		
 		g2d.setColor(Color.BLACK);
 		g2d.setFont(new Font(FONT, Font.PLAIN, 36));
 		
