@@ -1,3 +1,6 @@
+badges/**
+pdf/**
+
 *.class
 
 # Mobile Tools for Java (J2ME)
