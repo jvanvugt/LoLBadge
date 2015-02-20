@@ -16,11 +16,7 @@ public class LoLBadge {
 	private static final int BADGE_WIDTH = 1122;
 	private static final int BADGE_HEIGHT = 732;
 	private static HashMap<String, BufferedImage> rankLogos = new HashMap<String, BufferedImage>();
-	private static BufferedImage COGNAC_LOGO;
 	private static BufferedImage LOL_LOGO;
-	private static final int COGNAC_WIDTH = 200;
-	private static final int COGNAC_HEIGHT = 200;
-	private static final int COGNAC_PADDING = 50;
 	private static final int RANK_WIDTH = 192;
 	private static final int RANK_HEIGHT = 192;
 	private static final int LOL_WIDTH = 606;
@@ -35,7 +31,6 @@ public class LoLBadge {
 	public LoLBadge(Participant participant){
 		if(!imagesLoaded){
 			try {
-				COGNAC_LOGO = ImageIO.read(new File("res\\cognac.png"));
 				LOL_LOGO = ImageIO.read(new File("res\\lol.png"));
 				
 				rankLogos.put("Unranked", ImageIO.read(new File("res\\UNRANKED.png")));
@@ -91,14 +86,17 @@ public class LoLBadge {
     		g2d.setRenderingHints(aa);
     		
 		g2d.setColor(Color.BLACK);
-		g2d.setFont(new Font(FONT, Font.PLAIN, 36));
 		
+		g2d.setFont(new Font(FONT, Font.PLAIN, 86));
 		drawCentered(participant.getSummonerName(), 0, BADGE_HEIGHT / 2, g2d);
-		drawCentered(participant.getTeamName(), 0, (int) (BADGE_HEIGHT * 0.6), g2d);
-		drawCentered(participant.getRank(), 0, (int) (BADGE_HEIGHT * 0.75), g2d);
 		
-		g2d.drawImage(COGNAC_LOGO, BADGE_WIDTH - COGNAC_WIDTH - COGNAC_PADDING, COGNAC_PADDING, COGNAC_WIDTH, COGNAC_HEIGHT, null);
-		g2d.drawImage(rankLogos.get(participant.getRank().split(" ")[0]), BADGE_WIDTH / 2 - RANK_WIDTH / 2, BADGE_HEIGHT - RANK_HEIGHT, RANK_WIDTH, RANK_HEIGHT, null);
+		g2d.setFont(new Font(FONT, Font.PLAIN, 72));
+		drawCentered(participant.getTeamName(), 0, (int) (BADGE_HEIGHT * 0.7), g2d);
+		
+		g2d.setFont(new Font(FONT, Font.PLAIN, 48));
+		drawCentered(participant.getRank(), 0, (int) (BADGE_HEIGHT * 0.9), g2d);
+		
+		g2d.drawImage(rankLogos.get(participant.getRank().split(" ")[0]), BADGE_WIDTH / 2 - 300, BADGE_HEIGHT - RANK_HEIGHT, RANK_WIDTH, RANK_HEIGHT, null);
 		g2d.drawImage(LOL_LOGO, BADGE_WIDTH / 2 - LOL_WIDTH / 2, LOL_PADDING, LOL_WIDTH, LOL_HEIGHT, null);
 		return image;
 	}
