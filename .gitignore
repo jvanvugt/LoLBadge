@@ -1,5 +1,6 @@
 badges/**
 pdf/**
+res/badge_list.csv
 
 *.class
 
