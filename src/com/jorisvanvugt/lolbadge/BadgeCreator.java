@@ -11,7 +11,7 @@ public class BadgeCreator {
 	public void createBadges(ArrayList<Participant> participants) {
 		for (Participant p : participants) {
 			try {
-				ImageIO.write(new LoLBadge(p).toImage(), "png", new File("badges\\" + p.getSummonerName() + ".png"));
+				ImageIO.write(new LoLBadge(p).toImage(), "png", new File("badges\\" + p.getSummonerName().replace(' ', '_') + ".png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -23,10 +23,11 @@ public class BadgeCreator {
 		participants.add(new Participant("Joris", "Duurt Kor", "Platinum IV"));
 		participants.add(new Participant("Rahazan", "Duurt Lan", "Bronze VI"));
 		participants.add(new Participant("ProperChaos", "TeamO", "Diamond I"));
-		participants.add(new Participant("Mayia", "Team Tango", "Silver III"));
+		participants.add(new Participant("Combustion Man", "Team Tango", "Silver III"));
 		participants.add(new Participant("Fight4MyLife", "Team Tango", "Gold V"));
 		
 		new BadgeCreator().createBadges(participants);
+		new PDFCreator().createPDF(participants);
 	}
 
 }
