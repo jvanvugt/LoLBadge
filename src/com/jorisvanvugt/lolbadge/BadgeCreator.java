@@ -11,7 +11,7 @@ public class BadgeCreator {
 	public void createBadges(ArrayList<Participant> participants) {
 		for (Participant p : participants) {
 			try {
-				ImageIO.write(new LoLBadge(p).toImage(), "png", new File("badges\\" + p.getSummonerName().replace(' ', '_') + ".png"));
+				ImageIO.write(new LoLBadge(p).toImage(), "png", new File("badges\\" + p.getFileName() + ".png"));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -19,15 +19,12 @@ public class BadgeCreator {
 	}
 	
 	public static void main(String[] args){
-		ArrayList<Participant> participants = new ArrayList<Participant>();
-		participants.add(new Participant("Joris", "Duurt Kor", "Platinum IV"));
-		participants.add(new Participant("Rahazan", "Duurt Lan", "Bronze VI"));
-		participants.add(new Participant("ProperChaos", "TeamO", "Diamond I"));
-		participants.add(new Participant("Combustion Man", "Team Tango", "Silver III"));
-		participants.add(new Participant("Fight4MyLife", "Team Tango", "Gold V"));
-		
+		System.out.println("Reading file");
+		ArrayList<Participant> participants = new CSVReader().read("res\\badge_list.csv");
+		System.out.println("Creating badges");
 		new BadgeCreator().createBadges(participants);
+		System.out.println("Creating PDF");
 		new PDFCreator().createPDF(participants);
+		System.out.println("Done!");
 	}
-
 }
