@@ -24,16 +24,16 @@ public class PDFCreator {
 			
 			for(int i = 0; i < participants.size(); i++){
 				texSource.append("\\subfigure{\\includegraphics[width=95mm, frame]{../badges/" + participants.get(i).getFileName() + "}}");
-				if(i != 0 && i % 5 == 0){
+				 
+				if(i == participants.size() - 1) {
+					texSource.append("\n\\end{figure}\n");
+				} else if(i != 0 && (i + 1) % 6 == 0){
 					texSource.append("\n\\end{figure}\n" +
 								 "\\clearpage\n" +
 								 "\\begin{figure}[ht]\n"
 								 );
 				} else if(i % 2 == 1){
 					texSource.append(" \\\\");
-				} 
-				if(i == participants.size() - 1) {
-					texSource.append("\n\\end{figure}\n");
 				}
 				texSource.append("\n");
 			}
