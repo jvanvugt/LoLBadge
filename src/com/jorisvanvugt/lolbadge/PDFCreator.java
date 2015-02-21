@@ -6,11 +6,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class PDFCreator {
-	
 	public void createPDF(ArrayList<Participant> participants){
 		try {
-			PrintWriter writer = new PrintWriter(new File("pdf\\badges.tex"));
-			writer.write("\\documentclass{article}" 			+ "\n" +
+			StringBuilder texSource = new StringBuilder();
+			texSource.append("\\documentclass{article}" 			+ "\n" +
 						 "\\author{}" 							+ "\n" +
  						 "\\date{}" 							+ "\n" +
  						 "\\title{}" 							+ "\n" +
@@ -24,21 +23,24 @@ public class PDFCreator {
 					);
 			
 			for(int i = 0; i < participants.size(); i++){
-				writer.write("\\subfigure{\\includegraphics[width=95mm, frame]{../badges/" + participants.get(i).getSummonerName().replace(' ', '_') + "}}");
-				if(i != 0 && i % 6 == 0){
-					writer.write("\\end{figure}\n" +
+				texSource.append("\\subfigure{\\includegraphics[width=95mm, frame]{../badges/" + participants.get(i).getFileName() + "}}");
+				if(i != 0 && i % 5 == 0){
+					texSource.append("\n\\end{figure}\n" +
 								 "\\clearpage\n" +
 								 "\\begin{figure}[ht]\n"
 								 );
 				} else if(i % 2 == 1){
-					writer.write(" \\\\");
-				} else if(i == participants.size() - 1) {
-					writer.write("\n\\end{figure}\n");
+					texSource.append(" \\\\");
+				} 
+				if(i == participants.size() - 1) {
+					texSource.append("\n\\end{figure}\n");
 				}
-				writer.write("\n");
+				texSource.append("\n");
 			}
 			
-			writer.write("\\end{document}\n");
+			texSource.append("\\end{document}\n");
+			PrintWriter writer = new PrintWriter(new File("pdf\\badges.tex"));
+			writer.write(texSource.toString());
 			writer.close();
 			
 			System.out.println(new CMDCommand("cd pdf && pdflatex badges.tex").run());
