@@ -70,24 +70,26 @@ public class LoLBadge {
     		
 		g2d.setColor(Color.BLACK);
 		
-		g2d.setFont(new Font(FONT, Font.PLAIN, 128));
-		drawCentered(participant.getSummonerName(), 0, (int) (BADGE_HEIGHT * 0.3), g2d);
+		drawCentered(participant.getSummonerName(), 0, (int) (BADGE_HEIGHT * 0.3), g2d, 128);
 		
-		g2d.setFont(new Font(FONT, Font.PLAIN, 112));
-		drawCentered(participant.getTeamName(), 0, (int) (BADGE_HEIGHT * 0.5), g2d);
+		drawCentered(participant.getTeamName(), 0, (int) (BADGE_HEIGHT * 0.5), g2d, 112);
 		
-		g2d.setFont(new Font(FONT, Font.PLAIN, 100));
-		int rankX = drawCentered(participant.getRank(), RANK_WIDTH / 2, (int) (BADGE_HEIGHT * 0.87), g2d);
+		int rankX = drawCentered(participant.getRank(), RANK_WIDTH / 2, (int) (BADGE_HEIGHT * 0.87), g2d, 100);
 		
 		g2d.drawImage(rankLogos.get(participant.getRank().split(" ")[0]), rankX - RANK_WIDTH, BADGE_HEIGHT - RANK_HEIGHT, RANK_WIDTH, RANK_HEIGHT, null);
-
 		return image;
 	}
 	
-	private int drawCentered(String s, int xPos, int yPos, Graphics2D g2d){
-		int stringLen = (int) g2d.getFontMetrics().getStringBounds(s, g2d).getWidth();
-	    int start = BADGE_WIDTH / 2 - stringLen / 2;
-	    g2d.drawString(s, start + xPos, yPos);
-	    return start + xPos;
+	private int drawCentered(String s, int xPos, int yPos, Graphics2D g2d, int maxFontSize){
+		int start = -1;
+		while(start < 0) {
+			g2d.setFont(new Font(FONT, Font.PLAIN, maxFontSize));
+			int stringLen = (int) g2d.getFontMetrics().getStringBounds(s, g2d).getWidth();
+		    start = BADGE_WIDTH / 2 - stringLen / 2 + xPos;
+		    if(start < 0)
+		    	maxFontSize -= 5;
+		}
+	    g2d.drawString(s, start, yPos);
+	    return start;
 	}
 }
