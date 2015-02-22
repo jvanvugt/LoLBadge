@@ -70,7 +70,7 @@ public class LoLBadge {
     		
 		g2d.setColor(Color.BLACK);
 		
-		drawCentered(participant.getSummonerName(), 0, (int) (BADGE_HEIGHT * 0.3), g2d, 128);
+		drawCentered(participant.getSummonerName().replace('Ð', 'D'), 0, (int) (BADGE_HEIGHT * 0.3), g2d, 128);
 		
 		drawCentered(participant.getTeamName(), 0, (int) (BADGE_HEIGHT * 0.5), g2d, 112);
 		
