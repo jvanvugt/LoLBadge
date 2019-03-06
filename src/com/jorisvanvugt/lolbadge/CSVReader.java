@@ -12,7 +12,8 @@ public class CSVReader {
 		try {
 			Files.readAllLines(Paths.get(filePath)).forEach(line -> {
 				String[] values = line.split(",");
-				participants.add(new Participant(values[0], values[3], values[1] + " " + values[2]));
+				String teamName = String.join(",", Arrays.copyOfRange(values, 3, values.length));
+				participants.add(new Participant(values[0], teamName, values[1] + " " + values[2]));
 			}
 			);
 		} catch (IOException e) {
